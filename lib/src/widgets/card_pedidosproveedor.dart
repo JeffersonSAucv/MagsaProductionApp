@@ -27,9 +27,13 @@ class _CardPedidosProveedorState extends State<CardPedidosProveedor> {
     if( widget.pedidos.isEmpty ){
       return Container(
         child: Center(
-          child: ListTile(
-            title: Text('Pedidos vacíos'),
-          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+                Image.asset('assets/repartidor.png', height: 250, width: 200,),
+                Text("No tienes Pedidos Asignados aún")
+            ], 
+          )
         ),
       );
     } else {

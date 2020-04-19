@@ -5,9 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:provider/provider.dart';
 import 'package:repartos_magsa/src/models/modelo_usuario.dart';
+import 'package:repartos_magsa/src/pages/pages_servicio/ausentesservicio_page.dart';
 import 'package:repartos_magsa/src/pages/pages_servicio/historialLiquidados_page.dart';
-import 'package:repartos_magsa/src/pages/pages_servicio/pendientesliquidar_page.dart';
-import 'package:repartos_magsa/src/pages/pages_servicio/settingsservicio_page.dart';
+import 'package:repartos_magsa/src/pages/pages_servicio/pendientesliquidarservicio_page.dart';
+import 'package:repartos_magsa/src/services/pedidos_services.dart';
+
 
 
 
@@ -18,12 +20,22 @@ class HomeServicioPage extends StatefulWidget {
 
 class _HomeServicioPageState extends State<HomeServicioPage> {
 
+
+   bool unaVez = true;
+  @override
+  void didChangeDependencies() {
+    if( unaVez ){
+      User user = Provider.of<DatosUsuario>(context, listen: false).user;
+      Provider.of<PedidosServices>(context, listen: false).init( user: user );
+      unaVez = false;
+    }
+    super.didChangeDependencies();
+  } 
   @override
   void dispose() {
- 
+    Provider.of<PedidosServices>(context, listen: false).removeAll();
     super.dispose();
   }
-
   
   @override
   Widget build(BuildContext context) {
@@ -33,8 +45,9 @@ class _HomeServicioPageState extends State<HomeServicioPage> {
       create: (_) => new _NavegacionModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('${user.username}'),
+          title: Text('${user.departamento}'),
           actions: <Widget>[
+            // TODO CAMBIAR EL ICONO DE CERRAR SESION AL PERFIL
             IconButton(
               icon: Icon(Icons.exit_to_app, color: Colors.white),
               onPressed: (){
@@ -43,7 +56,8 @@ class _HomeServicioPageState extends State<HomeServicioPage> {
                 Provider.of<DatosUsuario>(context, listen: false).remplaceAll( dataUserEmpty );
                 Navigator.of(context).pushNamedAndRemoveUntil('/welcomepage', ( _ )=> false);
               }
-            )
+            ),
+            IconButton(icon: Icon(Icons.person,color: Colors.white), onPressed: (){})
           ],
         ),
         body: _Paginas(),
@@ -72,7 +86,7 @@ class Navegacion extends StatelessWidget {
               title: Text('Liquidados')),
           BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.cog),
-              title: Text('Ajustes')),
+              title: Text('Ausentes')),
         ]);
   }
 }
@@ -89,7 +103,7 @@ class _Paginas extends StatelessWidget {
       children: <Widget>[
         PendientesLiquidacionServicioPage(),
         PedidosLiquidadosServicioPage(),
-        SettingServicioPage()
+        AusentesServicioPage()
       ],
     );
   }

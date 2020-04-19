@@ -32,6 +32,23 @@ class PedidosPendienteLiquidarServicio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    
+     if (pedidos.isEmpty) {
+        return Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+                Image.asset('assets/delivery.png', height: 250, width: 200,),
+                Text("No hay por liquidar aún")
+            ], 
+          )
+        ),
+      );
+     } else {
+
+
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       itemCount: pedidos.length,
@@ -52,6 +69,7 @@ class PedidosPendienteLiquidarServicio extends StatelessWidget {
             fechaEntregaPedidoText: pedidos[index].fechaEntregado.toString(),
             campaniaText:           pedidos[index].idCampania.descripCamapania,
             remesaText:             pedidos[index].idRemesa.descripRemesa,
+            repartidorNombreText:   pedidos[index].idUser.username,
             
             //*TOP BANNER CARD
             iconbg:  FontAwesomeIcons.hourglass,
@@ -61,12 +79,13 @@ class PedidosPendienteLiquidarServicio extends StatelessWidget {
             //* BOTONES ACCION
             tituloaccion1:'LIQUIDAR',
             colorbotonaccion1: Colors.green,
-            accionboton1tap: (){ print(pedidos[index].id);}, 
+            accionboton1tap: (){ print(pedidos[index].idUser.username);}, 
 
         ),
       );
      },
     );
+  }
   }
 }
 

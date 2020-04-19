@@ -18,19 +18,21 @@ class MostrarDetallePedidoConsultoraPage extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final pedidosServices =
+    //final pedidosServices =
         Provider.of<PedidosServices>(context).detalleSeguimientoPedido;
     return SafeArea(
       child: Scaffold(
         body: Container(
            
-          child: ListView.builder(
+          child: Center(child: Text("hola consultora"))
+          
+           /* ListView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: pedidosServices.length,
             itemBuilder: (BuildContext context, int index) {
             return  InformacionPedido(pedidos:pedidosServices , index: index);
            },
-          ),
+          ), */
         ),
       ),
     );

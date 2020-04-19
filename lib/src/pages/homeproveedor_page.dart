@@ -56,9 +56,14 @@ class _HomeProveedorPageState extends State<HomeProveedorPage> {
                   DatosUsuario dataUserEmpty = DatosUsuario();
                   dataUserEmpty.user = User()..role = Role();
                   Provider.of<DatosUsuario>(context, listen: false).remplaceAll( dataUserEmpty );
-                  Navigator.of(context).pushNamedAndRemoveUntil('/welcomepage', ( _ )=> false);
+                  Navigator.of(context).pushNamedAndRemoveUntil('/welcomepage', (_)=> false);
                 }
-              )
+              ),
+              IconButton(icon: Icon(Icons.person,color: Colors.white), onPressed: (){
+
+                  Navigator.of(context).pushNamed('/perfilproveedor');
+
+              })
             ],
           ),
           body: _Paginas(),

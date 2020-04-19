@@ -36,6 +36,18 @@ class HistorialPedidosProveedor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+     if (pedidos.isEmpty) {
+        return Container(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+                Image.asset('assets/repartidor.png', height: 250, width: 200,),
+                Text("No tienes pedidos entregados aún")
+            ], 
+          )
+        ),
+      );
+     } else {
      
 
     return ListView.builder(
@@ -67,6 +79,6 @@ class HistorialPedidosProveedor extends StatelessWidget {
       );
      },
     );
-
+  }
   }
 }

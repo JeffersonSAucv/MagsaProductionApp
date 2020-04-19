@@ -46,6 +46,10 @@ class User {
     Role role;
     DateTime createdAt;
     DateTime updatedAt;
+    int dni;
+    int numeroCelular;
+    String direccion;
+    String departamento;
 
     User({
         this.id,
@@ -57,6 +61,10 @@ class User {
         this.role,
         this.createdAt,
         this.updatedAt,
+        this.dni,
+        this.numeroCelular,
+        this.direccion,
+        this.departamento,
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
@@ -69,6 +77,11 @@ class User {
         role:                 Role.fromJson(json),
         createdAt:            DateTime.parse(json['user']["created_at"]),
         updatedAt:            DateTime.parse(json['user']["updated_at"]),
+        dni:                  json['user']["dni"],
+        numeroCelular:        json['user']["numeroCelular"],
+        direccion:            json['user']["direccion"],
+        departamento:         json['user']["departamento"],
+
     );
 
     Map<String, dynamic> toJson() => {
@@ -81,6 +94,10 @@ class User {
         "role": role.toJson(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "dni": dni,
+        "numeroCelular": numeroCelular,
+        "direccion": direccion,
+        "departamento": departamento,
     };
 
     void remplaceAll( User userNuevo ){
@@ -93,6 +110,10 @@ class User {
         this.role.remplaceAll( userNuevo.role );
         this.createdAt     =       userNuevo.createdAt;
         this.updatedAt     =       userNuevo.updatedAt;
+        this.dni           =       userNuevo.dni;
+        this.numeroCelular =       userNuevo.numeroCelular;
+        this.direccion     =       userNuevo.direccion;
+        this.departamento  =       userNuevo.departamento;
     }
 }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:repartos_magsa/src/models/modelo_usuario.dart';
 import 'package:repartos_magsa/src/services/pedidos_services.dart';
 import 'package:repartos_magsa/src/widgets/card_pedidosproveedor.dart';
 

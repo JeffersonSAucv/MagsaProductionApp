@@ -15,6 +15,7 @@ class PedidosServices with ChangeNotifier{
   List<Pedidos> historialPedidos = [];            //Pedidos Proveedor
   List<Pedidos> pendientesLiquidarServicio = [];  //Pedidos Servicio
   List<Pedidos> liquidadosServicio= [];  
+  List<Pedidos> pedidosAusentes = [];        //Pedidos Servicio
   List<Pedidos> detalleSeguimientoPedido = [];        //Pedidos Servicio
 
   void init({ User user }){
@@ -23,6 +24,7 @@ class PedidosServices with ChangeNotifier{
     this.getHistorialPedidosProveedor( user: user );
     this.getPendientesLiquidacionServicio( user: user );
     this.getHistorialLiquidacionServicio( user: user );
+    this.getAusentesServicio(user: user);
     this.getDetalleSeguimientoPedidoConsultora();
   }
 
@@ -33,10 +35,11 @@ class PedidosServices with ChangeNotifier{
     pendientesLiquidarServicio.clear();
     liquidadosServicio.clear();
     detalleSeguimientoPedido.clear();
+    pedidosAusentes.clear();
   }
+  // API PEDIDOS EN RUTA  PROVEEDOR
 
-
-  void getPedidosEnRutaProveedor({ User user }) async {
+  void getPedidosEnRutaProveedor({ User user }) async {  // OBTENEROS LOS DATOS DEL USER REGISTRADO
     final url = '$_api/pedidos?idUser.id_eq=${user.id}&idEvento=2&idEstadoliquidacion=2';
     final resp = await http.get(url);
     final pedidosResponse =  pedidosFromJson(resp.body);
@@ -45,6 +48,8 @@ class PedidosServices with ChangeNotifier{
     notifyListeners();
 
   }
+
+  // API PEDIDOS PENDIENTES PROVEEDOR
 
   void getPedidosPendientesProveedor({ User user }) async {
     final url = '$_api/pedidos?idUser.id_eq=${user.id}&idEvento=3&idEstadoliquidacion=2';
@@ -55,6 +60,9 @@ class PedidosServices with ChangeNotifier{
 
   }
 
+    // API HISTORIAL  PEDIDOS PROVEEDOR
+
+
   void getHistorialPedidosProveedor({ User user }) async {
     final url = '$_api/pedidos?idUser.id_eq=${user.id}&idEvento=3&idEstadoliquidacion=3';
     final resp = await http.get(url);
@@ -63,22 +71,41 @@ class PedidosServices with ChangeNotifier{
     notifyListeners();
 
   }
+
+  // API QUE MUESTRA LOS PEDIDOS PENDIENTE DE LIQUIDACION DE SERVICIO 
+
   void getPendientesLiquidacionServicio({ User user }) async {
-    final url = '$_api/pedidos?Departamento_eq=LAMBAYEQUE&idEvento=3&idEstadoliquidacion=2';
+    final url = '$_api/pedidos?Departamento=${user.departamento}&idEvento=3&idEstadoliquidacion=2';
     final resp = await http.get(url);
     final pedidosResponse =  pedidosFromJson(resp.body);
     this.pendientesLiquidarServicio.addAll(pedidosResponse);
     notifyListeners();
 
   }
+
+  // API QUE MUESTRA  LOS PEDIDOS LIQUIDADOS DE SERVICIO
+
   void getHistorialLiquidacionServicio({ User user }) async {
-    final url = '$_api/pedidos?Departamento_eq=LAMBAYEQUE&idEvento=3&idEstadoliquidacion=3';
+    final url = '$_api/pedidos?Departamento=${user.departamento}&idEvento=3&idEstadoliquidacion=3';
     final resp = await http.get(url);
     final pedidosResponse =  pedidosFromJson(resp.body);
     this.liquidadosServicio.addAll(pedidosResponse);
     notifyListeners();
 
   }
+
+   // API QUE MUESTRA  LOS PEDIDOS AUSENTES DE SERVICIO
+
+  void getAusentesServicio({ User user }) async {
+    final url = '$_api/pedidos?idEvento=4&idEstadoliquidacion=2&Departamento=${user.departamento}';
+    final resp = await http.get(url);
+    final pedidosResponse =  pedidosFromJson(resp.body);
+    this.pedidosAusentes.addAll(pedidosResponse);
+    notifyListeners();
+
+  }
+
+  //API PARA CONSULTAR EL PEDIDO DE LA CONSULTORA
   void getDetalleSeguimientoPedidoConsultora() async {
     final url = '$_api/pedidos?codigoPedido=$numeropedido&Departamento=$departamenteSeleccionado';
     final resp = await http.get(url);
@@ -86,6 +113,11 @@ class PedidosServices with ChangeNotifier{
     this.detalleSeguimientoPedido.addAll(pedidosResponse);
     notifyListeners();
   }
+
+  
+
+
+  //ACTUALIZAR EL PEDIDO DEL  A  ENTREGADO
 
   Future<bool> updatePedido({ Pedidos pedido, DatosUsuario user }) async {
     Dio dio = new Dio();
@@ -109,6 +141,9 @@ class PedidosServices with ChangeNotifier{
 
   }
 
+
+  //PEDIDOS AUSENTES POR DEPARTAMENTO 
+  //https://magsa-backend-postgresql.herokuapp.com/pedidos?idEvento=4&idEstadoliquidacion=2&Departamento=LAMBAYEQUE 
 
 
 }

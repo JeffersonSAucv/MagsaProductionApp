@@ -38,6 +38,19 @@ class PedidosPendientesLiquidarProveedor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+     if (pedidos.isEmpty) {
+        return Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+                Image.asset('assets/repartidor.png', height: 250, width: 200,),
+                Text("No tienes pedidos para liquidar aún")
+            ], 
+          )
+        ),
+      );
+     } else {
      
 
     return ListView.builder(
@@ -70,7 +83,7 @@ class PedidosPendientesLiquidarProveedor extends StatelessWidget {
       );
      },
     );
-
+    }
   }
 }
 

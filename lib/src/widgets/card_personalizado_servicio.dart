@@ -16,6 +16,7 @@ final int index;
  @required final String    consultoraNombreText;
  @required final String    telefConsultoraText;
  @required final IconData  iconbg;
+ @required final String    repartidorNombreText;
 
  final String    tituloaccion1;
  final String    tituloaccion2;
@@ -51,6 +52,7 @@ final int index;
   this.fechaEntregaPedidoText = null ?? null,
   this.campaniaText  = null ?? null,
   this.remesaText = null ?? null,
+  this.repartidorNombreText,
 });
 
 
@@ -96,7 +98,7 @@ final int index;
             ),
             //BOTONES ACCIONES
            Positioned(
-             bottom: responsive.heigthp(3),
+             bottom: responsive.heigthp(1.8),
              child: Container(
                padding: EdgeInsets.symmetric(horizontal: responsive.widthp(30)),
                alignment: Alignment.center,
@@ -115,80 +117,6 @@ final int index;
   }
 
 
-  //*DATOS SI EL PEDIDO ESTA EN RUTA 
-
-  Widget pedidoEnRutaDetalle(BuildContext context){
-    
-    final  responsive = Responsive(context);
-  
-    final double sizeTextTitle = responsive.inchp(2.5);
-    final double sizeTextSubTitle = responsive.inchp(2);
-
-
-      return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    RichText(
-                    text: TextSpan(
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'OpenSans-Regular'
-                            ),
-                        children: [
-                          TextSpan(text: 'Distrito: ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: sizeTextTitle,)),
-                          TextSpan(text: nombreDistritoText , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
-                        ]),
-                  ),
-                  RichText(
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'OpenSans-Regular'
-                            ),
-                        children: [
-                          TextSpan(text: 'Punto de entrega:', style: TextStyle(fontWeight: FontWeight.w800, fontSize: sizeTextTitle,)),
-                          TextSpan(text: direccionText , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
-                        ]),
-                  ),
-                  RichText(
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'OpenSans-Regular'
-                            ),
-                        children: [
-                          TextSpan(text: direccionText , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
-                        ]),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'OpenSans-Regular'
-                            ),
-                        children: [
-                          TextSpan(text: 'Nombre consultora: ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: sizeTextTitle,)),
-                          TextSpan(text: consultoraNombreText , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
-                        ]),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'OpenSans-Regular'
-                            ),
-                        children: [
-                          TextSpan(text: 'Telf. consultora: ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: sizeTextTitle,)),
-                          TextSpan(text: telefConsultoraText , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
-                        ]),
-                    ),
-                  ], 
-                );
-    
-
-  }
 
    Widget pedidoDetalle(BuildContext context){
     
@@ -279,7 +207,17 @@ final int index;
                           TextSpan(text: remesaText , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
                         ]),
                   ),
-                  
+                    RichText(
+                    text: TextSpan(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'OpenSans-Regular'
+                            ),
+                        children: [
+                          TextSpan(text: 'Repartidor: ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: sizeTextTitle,)),
+                          TextSpan(text: (repartidorNombreText == null) ? '': repartidorNombreText.toUpperCase() , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
+                        ]),
+                    ),
                   ], 
                 );
     
