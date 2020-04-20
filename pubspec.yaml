@@ -31,6 +31,7 @@ dependencies:
   cube_transition: ^1.0.2
   intl: ^0.16.1
   dio: ^3.0.9
+  flutter_svg: ^0.17.4
 
 
 dev_dependencies:

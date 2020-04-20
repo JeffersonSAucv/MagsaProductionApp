@@ -19,11 +19,6 @@ class ConsultarPedidoForm extends StatelessWidget {
         children: <Widget>[
           BackGround(),
           AppBarWelcome(texto: 'INGRESA Nº DE PEDIDO',ontap:()=> Navigator.pop(context),),
-          /*  Positioned(
-            bottom: 20,
-            right: 1,
-            child: ImagenAyuda()
-          ), */
              SafeArea(
                child: ListView(
                 reverse: true,
@@ -46,15 +41,6 @@ class ConsultarPedidoForm extends StatelessWidget {
   }
 }
 
-class ImagenAyuda extends StatelessWidget {
-  
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Image.asset('assets/chica-pedido.png',width: 200,  height: 200),
-    );
-  }
-}
 
 class FormularioPedido extends StatefulWidget {
 

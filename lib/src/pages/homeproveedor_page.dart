@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart'; 
 
-
-import 'package:provider/provider.dart'; //LIBERIA PROVIDER
-import 'package:repartos_magsa/src/models/modelo_pedido.dart';
 import 'package:repartos_magsa/src/models/modelo_usuario.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //PAGINA DEL MENU
 import 'package:repartos_magsa/src/pages/pages_proveedor/enruta_pages.dart';
@@ -25,25 +23,33 @@ class _HomeProveedorPageState extends State<HomeProveedorPage> {
   
   bool unaVez = true;
   @override
+
+  // ANTES DE CARGAR LA PANTALLA ACTUAL, EJECUTA LA FUNCION DE PETICIONES
+  // OBTIENE LOS DATOS DE SESION DEL USUARIO Y LOS ENVIA A
   void didChangeDependencies() {
+
     if( unaVez ){
       User user = Provider.of<DatosUsuario>(context, listen: false).user;
       Provider.of<PedidosServices>(context, listen: false).init( user: user );
       unaVez = false;
     }
+    setState((){});
+
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    Provider.of<PedidosServices>(context, listen: false).removeAll();
+    eliminarPedidos();
+    eliminarDatosUsuario();
     super.dispose();
   }
+  void eliminarPedidos() => Provider.of<PedidosServices>(context, listen: false).removeAll();
+  void eliminarDatosUsuario() => Provider.of<DatosUsuario>(context, listen: false).dispose();
 
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<DatosUsuario>(context, listen: false).user;
-
     return ChangeNotifierProvider(
         create: (_)=> new _NavegacionModel(),
         child: Scaffold(
@@ -56,11 +62,12 @@ class _HomeProveedorPageState extends State<HomeProveedorPage> {
                   DatosUsuario dataUserEmpty = DatosUsuario();
                   dataUserEmpty.user = User()..role = Role();
                   Provider.of<DatosUsuario>(context, listen: false).remplaceAll( dataUserEmpty );
+                  eliminarPedidos(); //DISPARA EL DISPOSE DE LA APLICACION
                   Navigator.of(context).pushNamedAndRemoveUntil('/welcomepage', (_)=> false);
+                  //eliminarDatosUsuario();
                 }
               ),
               IconButton(icon: Icon(Icons.person,color: Colors.white), onPressed: (){
-
                   Navigator.of(context).pushNamed('/perfilproveedor');
 
               })

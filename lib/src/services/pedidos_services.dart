@@ -18,6 +18,12 @@ class PedidosServices with ChangeNotifier{
   List<Pedidos> pedidosAusentes = [];        //Pedidos Servicio
   List<Pedidos> detalleSeguimientoPedido = [];        //Pedidos Servicio
 
+  bool _buscandoPedido= false;
+
+  bool get buscandoPedido => this._buscandoPedido;
+
+
+
   void init({ User user }){
     this.getPedidosEnRutaProveedor( user: user );
     this.getPedidosPendientesProveedor( user: user );
@@ -25,7 +31,6 @@ class PedidosServices with ChangeNotifier{
     this.getPendientesLiquidacionServicio( user: user );
     this.getHistorialLiquidacionServicio( user: user );
     this.getAusentesServicio(user: user);
-    this.getDetalleSeguimientoPedidoConsultora();
   }
 
   void removeAll(){
@@ -34,8 +39,18 @@ class PedidosServices with ChangeNotifier{
     historialPedidos.clear();
     pendientesLiquidarServicio.clear();
     liquidadosServicio.clear();
-    detalleSeguimientoPedido.clear();
     pedidosAusentes.clear();
+  }
+  
+  void initConsultaPedido(){
+
+    this.getDetalleSeguimientoPedidoConsultora();
+  }
+
+  void removerConsultaPedido(){
+    //detalleSeguimientoPedido.clear();
+    detalleSeguimientoPedido.clear();
+
   }
   // API PEDIDOS EN RUTA  PROVEEDOR
 
@@ -107,10 +122,15 @@ class PedidosServices with ChangeNotifier{
 
   //API PARA CONSULTAR EL PEDIDO DE LA CONSULTORA
   void getDetalleSeguimientoPedidoConsultora() async {
+    _buscandoPedido = true;
+    notifyListeners();
+
     final url = '$_api/pedidos?codigoPedido=$numeropedido&Departamento=$departamenteSeleccionado';
     final resp = await http.get(url);
     final pedidosResponse =  pedidosFromJson(resp.body);
     this.detalleSeguimientoPedido.addAll(pedidosResponse);
+
+    _buscandoPedido = false;
     notifyListeners();
   }
 

@@ -33,19 +33,22 @@ class _HomeServicioPageState extends State<HomeServicioPage> {
   } 
   @override
   void dispose() {
-    Provider.of<PedidosServices>(context, listen: false).removeAll();
+    eliminarPedidos(); //LLAMAMOS A LA FUNCION REMOVER TODOS LOS PEDIDOS- LUEGO LANZAMOS EL DISPOSE EL ICONO DE CERRAR SESION 
     super.dispose();
   }
+
+  void eliminarPedidos() => Provider.of<PedidosServices>(context, listen: false).removeAll();
   
   @override
   Widget build(BuildContext context) {
+
     User user = Provider.of<DatosUsuario>(context, listen: false).user;
     
     return ChangeNotifierProvider(
       create: (_) => new _NavegacionModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('${user.departamento}'),
+          title: Text('${user.username}'),
           actions: <Widget>[
             // TODO CAMBIAR EL ICONO DE CERRAR SESION AL PERFIL
             IconButton(
@@ -54,6 +57,9 @@ class _HomeServicioPageState extends State<HomeServicioPage> {
                 DatosUsuario dataUserEmpty = DatosUsuario();
                 dataUserEmpty.user = User()..role = Role();
                 Provider.of<DatosUsuario>(context, listen: false).remplaceAll( dataUserEmpty );
+
+                eliminarPedidos(); // AL CERRAR SESION SE ACTIVA EL DISPOSE 
+
                 Navigator.of(context).pushNamedAndRemoveUntil('/welcomepage', ( _ )=> false);
               }
             ),
