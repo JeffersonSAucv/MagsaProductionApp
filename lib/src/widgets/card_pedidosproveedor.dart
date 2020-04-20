@@ -65,10 +65,20 @@ class _CardPedidosProveedorState extends State<CardPedidosProveedor> {
                 colorbotonaccion1: Colors.green,
                 colorbotonaccion2: Colors.yellow,
                 accionboton1tap: () async { 
+                  // INSTANCIA LOS DATOS DEL USUARIO
+
                   DatosUsuario datosUsuario = Provider.of<DatosUsuario>(context, listen: false);
+
+                  //LALAMOS AL LA FUNCION DEL PROVIDER ACTULIZAR PEDIDO = PEDIDO ENTREGADO
+                  // MANDAMOS LOS DATOS DEL USUARIO Y EL PEDIDO ACTUAL  QUE SE SELECCIONO 
                   bool resultado = await Provider.of<PedidosServices>(context, listen: false).updatePedido( user: datosUsuario, pedido: widget.pedidos.elementAt(index) );
+                  
+                  // SI SE INSERTO CORRECTAMENTE  SE AÑADE A LA LISTA DE PEDIDOS PENDIENTES
+
+
                   if( resultado ){
                     Provider.of<PedidosServices>(context, listen: false).pedidosPendientes.add(widget.pedidos.elementAt(index));
+                    // SE RE-DIBUJA  LA PANTALLA
                     setState(() {
                       widget.pedidos.removeAt(index);
                     });
@@ -77,7 +87,25 @@ class _CardPedidosProveedorState extends State<CardPedidosProveedor> {
                     // No pudo eliminar el contenido
                   }
                 },
-                accionboton2tap : (){},
+                accionboton2tap : () async{
+
+                   DatosUsuario datosUsuario = Provider.of<DatosUsuario>(context, listen: false);
+
+                    bool resultado = await Provider.of<PedidosServices>(context, listen: false).pedidoAusente(user: datosUsuario, pedido: widget.pedidos.elementAt(index));
+
+                    if( resultado ){
+
+                    // SE RE-DIBUJA  LA PANTALLA
+                    setState(() {
+                      widget.pedidos.removeAt(index);
+                    });
+                  } else {
+                    // show dialog error
+                    // No pudo eliminar el contenido
+                  }
+
+
+                },
 
                   ),
           );

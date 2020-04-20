@@ -91,7 +91,7 @@ class Navegacion extends StatelessWidget {
               icon: FaIcon(FontAwesomeIcons.history),
               title: Text('Liquidados')),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.cog),
+              icon: FaIcon(FontAwesomeIcons.boxOpen),
               title: Text('Ausentes')),
         ]);
   }

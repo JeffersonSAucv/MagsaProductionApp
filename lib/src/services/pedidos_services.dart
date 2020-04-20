@@ -137,7 +137,7 @@ class PedidosServices with ChangeNotifier{
   
 
 
-  //ACTUALIZAR EL PEDIDO DEL  A  ENTREGADO
+  //ACTUALIZAR EL PEDIDO :  A  ENTREGADO
 
   Future<bool> updatePedido({ Pedidos pedido, DatosUsuario user }) async {
     Dio dio = new Dio();
@@ -160,6 +160,55 @@ class PedidosServices with ChangeNotifier{
     }
 
   }
+
+   //ACTUALIZAR EL PEDIDO :  A  AUSENTE
+
+  Future<bool> pedidoAusente({ Pedidos pedido, DatosUsuario user }) async {
+    Dio dio = new Dio();
+    dio.options.headers['content-Type'] = 'application/json';
+    dio.options.headers["Authorization"] = "Bearer ${user.jwt}";
+    Response response = await dio.put(
+      ENTREGAR_PEDIDO_URL+'${pedido.id}',
+      data: {
+        'fechaPrimeraVisita' : DateTime.now().toString(),
+        'idEvento': {
+          "id": 4
+        }
+      }
+    );
+
+    if( response.statusCode == 200 ){
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
+  //ACTUALIZAR EL PEDIDO :  A  LIQUIDADO
+
+  Future<bool> liquidarPedido({ Pedidos pedido, DatosUsuario user }) async {
+    Dio dio = new Dio();
+    dio.options.headers['content-Type'] = 'application/json';
+    dio.options.headers["Authorization"] = "Bearer ${user.jwt}";
+    Response response = await dio.put(
+      ENTREGAR_PEDIDO_URL+'${pedido.id}',
+      data: {
+        'idEstadoliquidacion': {
+          "id": 3
+        }
+      }
+    );
+
+    if( response.statusCode == 200 ){
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+  
+
 
 
   //PEDIDOS AUSENTES POR DEPARTAMENTO 

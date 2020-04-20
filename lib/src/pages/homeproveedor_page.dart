@@ -25,7 +25,7 @@ class _HomeProveedorPageState extends State<HomeProveedorPage> {
   @override
 
   // ANTES DE CARGAR LA PANTALLA ACTUAL, EJECUTA LA FUNCION DE PETICIONES
-  // OBTIENE LOS DATOS DE SESION DEL USUARIO Y LOS ENVIA A
+  // OBTIENE LOS DATOS DE SESION DEL USUARIO Y LOS ENVIA A LA FUNCION
   void didChangeDependencies() {
 
     if( unaVez ){
