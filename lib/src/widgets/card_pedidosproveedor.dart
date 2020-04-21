@@ -8,6 +8,7 @@ import 'package:repartos_magsa/src/models/modelo_pedido.dart';
 import 'package:repartos_magsa/src/models/modelo_usuario.dart';
 import 'package:repartos_magsa/src/services/pedidos_services.dart';
 import 'package:repartos_magsa/src/widgets/card_peronalizado.dart';
+import 'package:repartos_magsa/src/widgets/dialogs_widget.dart';
 
 //*PAGINA DONDE CARGAMOS LOS PEDIDOS EN RUTA DEL PROVEEDOR 
 
@@ -87,10 +88,17 @@ class _CardPedidosProveedorState extends State<CardPedidosProveedor> {
                     // No pudo eliminar el contenido
                   }
                 },
-                accionboton2tap : () async{
+                //ACCIONA EL DEVOLVER PEDIDO
+                accionboton2tap : () {
 
-                   DatosUsuario datosUsuario = Provider.of<DatosUsuario>(context, listen: false);
+                  Dialogs.pedidoAusente(
+                  context,
+                  title: 'Confirmar Accion',
+                  message: '¿Desea marcar el pedido como ausente?',
 
+                  accionConfirmar: () async{
+
+                    DatosUsuario datosUsuario = Provider.of<DatosUsuario>(context, listen: false);
                     bool resultado = await Provider.of<PedidosServices>(context, listen: false).pedidoAusente(user: datosUsuario, pedido: widget.pedidos.elementAt(index));
 
                     if( resultado ){
@@ -99,11 +107,19 @@ class _CardPedidosProveedorState extends State<CardPedidosProveedor> {
                     setState(() {
                       widget.pedidos.removeAt(index);
                     });
+                    Navigator.pop(context);
                   } else {
                     // show dialog error
-                    // No pudo eliminar el contenido
-                  }
 
+                    Dialogs.errorActulizandoPedido(context,title: 'Ocurrió un Problema!' , message: 'Vuelve a intentarlo o vuelve reiniciar la aplicacion');
+                  } 
+
+
+
+
+                  }
+  
+                  );
 
                 },
 

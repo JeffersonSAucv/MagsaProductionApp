@@ -1,19 +1,26 @@
 //PAGINA DONDE  SE MUESTRA EL DETALLE DEL PEDIDO  CONSULTADO
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:intl/intl.dart';
+
 import 'package:provider/provider.dart';
-import 'package:repartos_magsa/src/models/modelo_pedido.dart';
 import 'package:repartos_magsa/src/services/pedidos_services.dart';
-import 'package:repartos_magsa/utils/responsive.dart';
+
+import 'package:repartos_magsa/src/models/modelo_pedido.dart';
+
 import 'package:repartos_magsa/src/widgets/appbar_welcome_custom.dart';
+import 'package:repartos_magsa/utils/formateoHoraFecha.dart';
+
+import 'package:repartos_magsa/utils/responsive.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MostrarDetallePedidoConsultoraPage extends StatefulWidget {
   final List<Pedidos> pedidos;
 
   const MostrarDetallePedidoConsultoraPage({this.pedidos});
-  
+
   @override
   _MostrarDetallePedidoConsultoraPageState createState() =>
       _MostrarDetallePedidoConsultoraPageState();
@@ -21,7 +28,6 @@ class MostrarDetallePedidoConsultoraPage extends StatefulWidget {
 
 class _MostrarDetallePedidoConsultoraPageState
     extends State<MostrarDetallePedidoConsultoraPage> {
-
   bool unaVez = true;
   @override
   void didChangeDependencies() {
@@ -35,15 +41,14 @@ class _MostrarDetallePedidoConsultoraPageState
 
   @override
   void dispose() {
-     
-
-
     eliminarPedidoConsultado();
     setState(() {});
     super.dispose();
   }
 
-  void eliminarPedidoConsultado() =>  Provider.of<PedidosServices>(context, listen: false).removerConsultaPedido();     // con esta funcion llamo a la listas.clear para eliminar lo que contiene
+  void eliminarPedidoConsultado() => Provider.of<PedidosServices>(context,
+          listen: false)
+      .removerConsultaPedido(); // con esta funcion llamo a la listas.clear para eliminar lo que contiene
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +63,9 @@ class _MostrarDetallePedidoConsultoraPageState
               child: CircularProgressIndicator(),
             )
           : pedidosServices.length == 0
-              ? PedidoNoEncontrado(context:  context,)
+              ? PedidoNoEncontrado(
+                  context: context,
+                )
               : ListView.builder(
                   physics: BouncingScrollPhysics(),
                   itemCount: pedidosServices.length,
@@ -74,8 +81,10 @@ class _MostrarDetallePedidoConsultoraPageState
 class PedidoNoEncontrado extends StatelessWidget {
   final BuildContext context;
 
- void eliminarPedidoConsultado() =>  Provider.of<PedidosServices>(context, listen: false).removerConsultaPedido();
-      
+  void eliminarPedidoConsultado() =>
+      Provider.of<PedidosServices>(context, listen: false)
+          .removerConsultaPedido();
+
   const PedidoNoEncontrado({Key key, this.context}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -94,11 +103,11 @@ class PedidoNoEncontrado extends StatelessWidget {
             height: 5,
           ),
           FlatButton(
-              onPressed: () { 
+              onPressed: () {
                 eliminarPedidoConsultado();
-                Navigator.pushNamedAndRemoveUntil(context, '/welcomepage', (_) => false);
-
-                },
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/welcomepage', (_) => false);
+              },
               child: Text("Clik aquí para volver al incio",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)))
         ],
@@ -116,7 +125,9 @@ class InformacionPedido extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context); //* FUNCION RESONSIVE PARA LA APP
-    void eliminarPedidoConsultado() =>  Provider.of<PedidosServices>(context, listen: false).removerConsultaPedido();
+    void eliminarPedidoConsultado() =>
+        Provider.of<PedidosServices>(context, listen: false)
+            .removerConsultaPedido();
     return Container(
       height: responsive.heigthp(100),
       child: Stack(
@@ -126,9 +137,8 @@ class InformacionPedido extends StatelessWidget {
               ontap: () {
                 eliminarPedidoConsultado();
                 Navigator.pushNamedAndRemoveUntil(
-                  context, '/welcomepage', (_) => false);
-                  
-                }),
+                    context, '/welcomepage', (_) => false);
+              }),
           Positioned(
               top: responsive.heigthp(8),
               child: HeadSeguimientoPedido(
@@ -161,9 +171,9 @@ class HeadSeguimientoPedido extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Hola ${pedidos[index].nombreConsultora}!",
+          Text("Hola ${cortarNombre()} !",
               style: TextStyle(
-                  fontSize: responsive.inchp(3),
+                  fontSize: responsive.inchp(3.5),
                   fontFamily: 'Rubik Bold',
                   fontWeight: FontWeight.bold)),
           SizedBox(
@@ -190,6 +200,12 @@ class HeadSeguimientoPedido extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // MOSTRANDO EL PRIMERO NOMBRE DE LA CONSULTORA
+  String cortarNombre() {
+    var nombre = (pedidos[index].nombreConsultora).toString().split(' ');
+    return nombre[0];
   }
 }
 
@@ -276,11 +292,24 @@ class BodyDetallePedido extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-
-    /* final dateFormat = DateFormat('dd-MM-yyyy');
-    DateTime date=DateTime.parse(pedidos[index].fechaEnLocal.toString()); */
-
     final responsive = Responsive(context);
+
+    // FECHA DEL JSON
+
+    DateTime fechaEnLocal   = pedidos[index].fechaEnLocal;
+    DateTime fechaEnRuta    = pedidos[index].fechaEnRuta;
+    DateTime fechaEntregado = pedidos[index].fechaEntregado;
+
+    //FORMATEAR HORA
+    var horaFormateadaEnLocal = FormatearDate().formatearHora(fechaEnLocal.toString());
+    var horaFormateadaEnRuta = FormatearDate().formatearHora(fechaEnRuta.toString());
+    var horaFormateadaEntrega = FormatearDate().formatearHora(fechaEntregado.toString());
+
+    // FORMATEAR FECHA
+
+    var fechaFormateadaEnLocal = FormatearDate().formatearFecha(fechaEnLocal);
+    var fechaFormateadaEnRuta = FormatearDate().formatearFecha(fechaEnRuta);
+    var fechaFormateadaEntrega = FormatearDate().formatearFecha(fechaEntregado);
 
     final alto = MediaQuery.of(context).size;
     return Container(
@@ -321,12 +350,15 @@ class BodyDetallePedido extends StatelessWidget {
                         Text(
                             (pedidos[index].fechaEnLocal == null)
                                 ? 'Fecha: -'
-                                : 'Fecha: ${DateFormat.yMMMd().format(pedidos[index].fechaEnLocal)}',
+                                : 'Fecha: $fechaFormateadaEnLocal',
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
-                        Text("Hora: -",
+                        Text(
+                            (pedidos[index].fechaEnLocal == null)
+                                ? 'Hora: -'
+                                : 'Hora: $horaFormateadaEnLocal',
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
@@ -371,16 +403,25 @@ class BodyDetallePedido extends StatelessWidget {
                         Text(
                             (pedidos[index].fechaEnRuta == null)
                                 ? 'Fecha: -'
-                                : "Fecha: ${DateFormat.yMMMd().format(pedidos[index].fechaEnRuta)}",
+                                : "Fecha: $fechaFormateadaEnRuta",
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
-                        Text("Hora:  - ",
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                            (pedidos[index].fechaEnRuta == null)
+                                ? 'Hora: -'
+                                : "Hora: $horaFormateadaEnRuta",
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Text(
                             (pedidos[index].idUser == null)
                                 ? 'Repartidor: -'
@@ -429,12 +470,15 @@ class BodyDetallePedido extends StatelessWidget {
                         Text(
                             (pedidos[index].fechaEntregado == null)
                                 ? 'Fecha: -'
-                                : "Fecha: ${DateFormat.yMMMd().format(pedidos[index].fechaEntregado)}",
+                                : "Fecha: $fechaFormateadaEntrega",
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
-                        Text("Hora: ",
+                        Text(
+                            (pedidos[index].fechaEntregado == null)
+                                ? 'Hora: -'
+                                : "Hora: $horaFormateadaEntrega",
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
