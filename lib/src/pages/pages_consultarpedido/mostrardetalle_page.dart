@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:intl/intl.dart';
+
 
 import 'package:provider/provider.dart';
 import 'package:repartos_magsa/src/services/pedidos_services.dart';
@@ -284,7 +284,7 @@ class CuadradoNegro extends StatelessWidget {
   }
 }
 
-class BodyDetallePedido extends StatelessWidget {
+ class BodyDetallePedido extends StatelessWidget {
   final List<Pedidos> pedidos;
   final int index;
 
@@ -296,20 +296,21 @@ class BodyDetallePedido extends StatelessWidget {
 
     // FECHA DEL JSON
 
-    DateTime fechaEnLocal   = pedidos[index].fechaEnLocal;
-    DateTime fechaEnRuta    = pedidos[index].fechaEnRuta;
-    DateTime fechaEntregado = pedidos[index].fechaEntregado;
+    var fechaEnLocal   = pedidos[index].fechaEnLocal;
+    var fechaEnRuta    = pedidos[index].fechaEnRuta;
+    var fechaEntregado = pedidos[index].fechaEntregado;
+
 
     //FORMATEAR HORA
-    var horaFormateadaEnLocal = FormatearDate().formatearHora(fechaEnLocal.toString());
-    var horaFormateadaEnRuta = FormatearDate().formatearHora(fechaEnRuta.toString());
-    var horaFormateadaEntrega = FormatearDate().formatearHora(fechaEntregado.toString());
+    var horaFormateadaEnLocal = FormatearDate().formatearHora(fechaEnLocal);
+    var horaFormateadaEnRuta = FormatearDate().formatearHora(fechaEnRuta);
+    var horaFormateadaEntrega = FormatearDate().formatearHora(fechaEntregado);
 
     // FORMATEAR FECHA
 
     var fechaFormateadaEnLocal = FormatearDate().formatearFecha(fechaEnLocal);
     var fechaFormateadaEnRuta = FormatearDate().formatearFecha(fechaEnRuta);
-    var fechaFormateadaEntrega = FormatearDate().formatearFecha(fechaEntregado);
+    var fechaFormateadaEntrega = FormatearDate().formatearFecha(fechaEntregado); 
 
     final alto = MediaQuery.of(context).size;
     return Container(
@@ -348,15 +349,15 @@ class BodyDetallePedido extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                            (pedidos[index].fechaEnLocal == null)
+                             (pedidos[index].fechaEnLocal == null)
                                 ? 'Fecha: -'
-                                : 'Fecha: $fechaFormateadaEnLocal',
+                                : 'Fecha: $fechaFormateadaEnLocal' ,
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
                         Text(
-                            (pedidos[index].fechaEnLocal == null)
+                             (pedidos[index].fechaEnLocal == null)
                                 ? 'Hora: -'
                                 : 'Hora: $horaFormateadaEnLocal',
                             style: TextStyle(
@@ -401,7 +402,7 @@ class BodyDetallePedido extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                            (pedidos[index].fechaEnRuta == null)
+                             (pedidos[index].fechaEnRuta == null)
                                 ? 'Fecha: -'
                                 : "Fecha: $fechaFormateadaEnRuta",
                             style: TextStyle(
@@ -423,9 +424,9 @@ class BodyDetallePedido extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                            (pedidos[index].idUser == null)
+                             (pedidos[index].idUser == null)
                                 ? 'Repartidor: -'
-                                : "Repartidor: ${pedidos[index].idUser.username}",
+                                : "Repartidor: ${pedidos[index].idUser.username}" ,
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
@@ -507,3 +508,4 @@ class BodyDetallePedido extends StatelessWidget {
     );
   }
 }
+ 
