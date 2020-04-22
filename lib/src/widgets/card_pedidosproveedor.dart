@@ -65,6 +65,8 @@ class _CardPedidosProveedorState extends State<CardPedidosProveedor> {
                 tituloaccion2: 'AUSENTE',
                 colorbotonaccion1: Colors.green,
                 colorbotonaccion2: Colors.yellow,
+
+                //ENTREGAR PEDIDOS
                 accionboton1tap: () async { 
                   // INSTANCIA LOS DATOS DEL USUARIO
 
@@ -83,11 +85,13 @@ class _CardPedidosProveedorState extends State<CardPedidosProveedor> {
                     setState(() {
                       widget.pedidos.removeAt(index);
                     });
+                     Navigator.pop(context); 
                   } else {
                     // show dialog error
                     // No pudo eliminar el contenido
                   }
                 },
+                
                 //ACCIONA EL DEVOLVER PEDIDO
                 accionboton2tap : () {
 
@@ -108,22 +112,18 @@ class _CardPedidosProveedorState extends State<CardPedidosProveedor> {
                       widget.pedidos.removeAt(index);
                     });
                     Navigator.pop(context);
-                  } else {
-                    // show dialog error
+                      } else {
+                        // show dialog error
 
-                    Dialogs.errorActulizandoPedido(context,title: 'Ocurrió un Problema!' , message: 'Vuelve a intentarlo o vuelve reiniciar la aplicacion');
-                  } 
-
-
-
-
+                        Dialogs.errorActulizandoPedido(context,title: 'Ocurrió un Problema!' , message: 'Vuelve a intentarlo o vuelve reiniciar la aplicacion');
+                    } 
                   }
   
                   );
 
                 },
 
-                  ),
+              ),
           );
         },
         ); 
