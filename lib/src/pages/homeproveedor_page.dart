@@ -13,6 +13,8 @@ import 'package:repartos_magsa/src/services/pedidos_services.dart';
 import 'package:repartos_magsa/src/widgets/dialogs_widget.dart';
 
 class HomeProveedorPage extends StatefulWidget {
+  
+  static final String routeName = '/homeproveedor';
   @override
   _HomeProveedorPageState createState() => _HomeProveedorPageState();
 }

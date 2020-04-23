@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'
-;
+
+import 'package:provider/provider.dart';
 import 'package:repartos_magsa/src/models/modelo_usuario.dart';
-import 'package:repartos_magsa/src/pages/uknow_page.dart';
-import 'package:repartos_magsa/src/routes/routes.dart';
 import 'package:repartos_magsa/src/services/pedidos_services.dart';
 
+import 'package:repartos_magsa/src/routes/routes.dart';
+
+import 'package:repartos_magsa/src/pages/uknow_page.dart';
+//import 'package:repartos_magsa/src/shared_preferences/shared_preferences.dart';
  
-void main() => runApp(MyApp());
+void main()  {
+
+  /* WidgetsFlutterBinding.ensureInitialized();
+  final prefs = new PreferenciasUsuario();
+  await prefs.initPrefs(); */
+   runApp(MyApp());
+}
  
 class MyApp extends StatelessWidget {
+
+  //final prefs = new PreferenciasUsuario();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

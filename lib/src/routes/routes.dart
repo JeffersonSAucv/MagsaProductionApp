@@ -10,12 +10,15 @@ import 'package:repartos_magsa/src/pages/welcome_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
-    '/welcomepage'            :     ( BuildContext context ) => WelcomePage(),
-    '/loginpage'              :     ( BuildContext context ) => LoginPage(),
-    '/consultarpedidoform'    :     ( BuildContext context ) => ConsultarPedidoForm(),
-    '/homeservicio'           :     ( BuildContext context ) => HomeServicioPage(),
-    '/homeproveedor'          :     ( BuildContext context ) => HomeProveedorPage(),
-    '/mostrarpedidodetalle'   :     ( BuildContext context ) => MostrarDetallePedidoConsultoraPage(),
-    '/perfilproveedor'        :     ( BuildContext context ) => PerfilProveedorPage()
+
+    // SE LLAMA A LA PROPIEDAD ESTATICA DE LA PAGINA,  PARA PODER HACER USO DE LOS SHARED PREFERENCES
+
+    WelcomePage.routeName             :     ( BuildContext context ) => WelcomePage(),
+    '/loginpage'                      :     ( BuildContext context ) => LoginPage(),
+    '/consultarpedidoform'            :     ( BuildContext context ) => ConsultarPedidoForm(),
+    HomeServicioPage.routeName        :     ( BuildContext context ) => HomeServicioPage(),
+    HomeProveedorPage.routeName       :     ( BuildContext context ) => HomeProveedorPage(),
+    '/mostrarpedidodetalle'           :     ( BuildContext context ) => MostrarDetallePedidoConsultoraPage(),
+    '/perfilproveedor'                :     ( BuildContext context ) => PerfilProveedorPage()
   };
 }

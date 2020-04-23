@@ -57,6 +57,7 @@ class PedidosPendientesLiquidarProveedor extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       itemCount: pedidos.length,
       itemBuilder: (BuildContext context, int index) {
+         print("PEDIDOS TOTALESSSS : ${pedidos.length}");
       return FadeInLeft(
         duration: Duration(milliseconds:  400),
         child: CardPedidoPersonalizadoWidget(

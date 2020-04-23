@@ -61,6 +61,7 @@ class _PedidosPendienteLiquidarServicioState
         physics: BouncingScrollPhysics(),
         itemCount: widget.pedidos.length,
         itemBuilder: (BuildContext context, int index) {
+          print("PEDIDOS TOTALESSSS : ${widget.pedidos.length}");
           return FadeInLeft(
             duration: Duration(milliseconds: 400),
             child: CardPedidoPersonalizadoServicioWidget(
@@ -95,20 +96,28 @@ class _PedidosPendienteLiquidarServicioState
                     message: '¿Desea marcar el pedido como Liquidado?',
                     accionConfirmar: () async {
                   try {
-                    DatosUsuario datosUsuario = Provider.of<DatosUsuario>(context, listen: false);
+                    DatosUsuario datosUsuario =
+                        Provider.of<DatosUsuario>(context, listen: false);
 
-                    bool resultadoActulizacion =  await Provider.of<PedidosServices>(context,listen: false).liquidarPedido(
-                          user: datosUsuario,
-                          pedido: widget.pedidos.elementAt(index));
+                    bool resultadoActulizacion =
+                        await Provider.of<PedidosServices>(context,
+                                listen: false)
+                            .liquidarPedido(
+                                user: datosUsuario,
+                                pedido: widget.pedidos.elementAt(index));
 
                     if (resultadoActulizacion) {
-                      Provider.of<PedidosServices>(context, listen: false).liquidadosServicio.add(widget.pedidos.elementAt(index));
+                      Provider.of<PedidosServices>(context, listen: false)
+                          .liquidadosServicio
+                          .add(widget.pedidos.elementAt(index));
                       setState(() => widget.pedidos.removeAt(index));
-                       Navigator.pop(context); //CIERRA EL DIALOG 
+                      Navigator.pop(context); //CIERRA EL DIALOG
                     } else {
                       // show dialog error
-                     Dialogs.errorActulizandoPedido(context,title: 'Ocurrió un Problema!' , message: 'Vuelve a intentarlo o vuelve reiniciar la aplicacion');
-
+                      Dialogs.errorActulizandoPedido(context,
+                          title: 'Ocurrió un Problema!',
+                          message:
+                              'Vuelve a intentarlo o vuelve reiniciar la aplicacion');
                     }
                   } catch (e) {
                     print(e);

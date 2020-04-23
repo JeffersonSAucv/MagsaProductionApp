@@ -11,6 +11,8 @@ import 'package:repartos_magsa/src/widgets/background_widget.dart';
 import 'package:repartos_magsa/utils/responsive.dart';
 
 class WelcomePage extends StatefulWidget {
+  
+  static final String routeName = '/welcomepage';
   @override
   _WelcomePageState createState() => _WelcomePageState();
 }

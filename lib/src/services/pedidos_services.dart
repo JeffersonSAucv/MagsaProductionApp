@@ -146,7 +146,7 @@ class PedidosServices with ChangeNotifier{
     Response response = await dio.put(
       ENTREGAR_PEDIDO_URL+'${pedido.id}',
       data: {
-        'fechaPrimeraVisita' : DateTime.now().toString(),
+        'fechaEntregado': DateTime.now().toString(),
         'idEvento': {
           "id": 3
         }

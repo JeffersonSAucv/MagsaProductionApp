@@ -40,6 +40,7 @@ class HistorialPedidosProveedor extends StatelessWidget {
         return Container(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
                 Image.asset('assets/repartidor.png', height: 250, width: 200,),
                 Text("No tienes pedidos entregados aún")
@@ -54,6 +55,7 @@ class HistorialPedidosProveedor extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       itemCount: pedidos.length,
       itemBuilder: (BuildContext context, int index) {
+         print("PEDIDOS TOTALESSSS : ${pedidos.length}");
       return FadeInLeft(
         duration: Duration(milliseconds:  400),
         child: CardPedidoPersonalizadoWidget(

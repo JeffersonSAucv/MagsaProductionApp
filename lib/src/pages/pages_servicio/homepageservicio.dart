@@ -9,14 +9,23 @@ import 'package:repartos_magsa/src/pages/pages_servicio/ausentesservicio_page.da
 import 'package:repartos_magsa/src/pages/pages_servicio/historialLiquidados_page.dart';
 import 'package:repartos_magsa/src/pages/pages_servicio/pendientesliquidarservicio_page.dart';
 import 'package:repartos_magsa/src/services/pedidos_services.dart';
+//import 'package:repartos_magsa/src/shared_preferences/shared_preferences.dart';
+
 import 'package:repartos_magsa/src/widgets/dialogs_widget.dart';
 
 class HomeServicioPage extends StatefulWidget {
+
+  //PROPIEDAD ESTATICA ALMACENA EL NOMBRE DE LA RUTA DE LA PAGINA
+  static final String routeName = '/homeservicio';
+
   @override
   _HomeServicioPageState createState() => _HomeServicioPageState();
 }
 
 class _HomeServicioPageState extends State<HomeServicioPage> {
+
+  //final prefs = new PreferenciasUsuario();
+
   bool unaVez = true;
   @override
   void didChangeDependencies() {
@@ -39,13 +48,16 @@ class _HomeServicioPageState extends State<HomeServicioPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    //prefs.ultimaPagina = HomeServicioPage.routeName;
+
     User user = Provider.of<DatosUsuario>(context, listen: false).user;
 
     return ChangeNotifierProvider(
       create: (_) => new _NavegacionModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('${user.username}'),
+          title: (user.username ==  null ) ? Text("...") :Text('${user.username}'),
           actions: <Widget>[
             // TODO CAMBIAR EL ICONO DE CERRAR SESION AL PERFIL
             IconButton(
