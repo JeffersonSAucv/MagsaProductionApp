@@ -13,9 +13,7 @@ class AusentesServicioPage extends StatelessWidget {
     final pedidosServices = Provider.of<PedidosServices>(context).pedidosAusentes;
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: PedidosAusentesServicios(pedidos: pedidosServices,),
-       ),
+        body: PedidosAusentesServicios(pedidos: pedidosServices,),
    ),
     );
   }
@@ -37,6 +35,7 @@ class PedidosAusentesServicios extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
                 Image.asset('assets/box.png', height: 150, width: 150,),
+                SizedBox(height: 10, ),
                 Text("No hay pedidos Ausentes")
             ], 
           )
