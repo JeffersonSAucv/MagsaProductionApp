@@ -64,7 +64,7 @@ final int index;
         return Container(
           margin: EdgeInsets.all(20),
           width: double.infinity,
-          height: responsive.heigthp(60),
+          height: responsive.heigthp(65),
           decoration: BoxDecoration(
              borderRadius: BorderRadius.circular(15),
              color: Colors.white,
@@ -149,6 +149,16 @@ final int index;
                             ),
                         children: [
                           TextSpan(text: 'Punto de entrega: ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: sizeTextTitle,)),
+                        ]),
+                  ),
+                   RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'OpenSans-Regular'
+                            ),
+                        children: [
                           TextSpan(text: direccionText , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
                         ]),
                   ),
@@ -182,7 +192,7 @@ final int index;
                             ),
                         children: [
                           TextSpan(text: 'Fecha Entrega: ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: sizeTextTitle,)),
-                          TextSpan(text: fechaEntregaPedidoText , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
+                          TextSpan(text: fechaEntregaPedidoText.substring(0,10) , style: TextStyle(fontWeight: FontWeight.w400, fontSize: sizeTextSubTitle,)),
                         ]),
                   ),
                   RichText(
