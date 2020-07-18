@@ -297,6 +297,7 @@ class BodyDetallePedido extends StatelessWidget {
     var fechaEnLocal = pedidos[index].fechaEnLocal;
     var fechaEnRuta = pedidos[index].fechaEnRuta;
     var fechaEntregado = pedidos[index].fechaEntregado;
+    var fechaDespacho = pedidos[index].fechaDespacho;
 
     //FORMATEAR HORA
     var horaFormateadaEnLocal = FormatearDate().formatearHora(fechaEnLocal);
@@ -308,6 +309,7 @@ class BodyDetallePedido extends StatelessWidget {
     var fechaFormateadaEnLocal = FormatearDate().formatearFecha(fechaEnLocal);
     var fechaFormateadaEnRuta = FormatearDate().formatearFecha(fechaEnRuta);
     var fechaFormateadaEntrega = FormatearDate().formatearFecha(fechaEntregado);
+    var fechaFormateadaDespacho = FormatearDate().formatearFecha(fechaDespacho);
 
     final alto = MediaQuery.of(context).size;
     return Container(
@@ -321,6 +323,59 @@ class BodyDetallePedido extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: <Widget>[
+            SizedBox(
+              height: responsive.heigthp(5),
+            ),
+            Container(
+              width: responsive.widthp(95),
+              height: responsive.widthp(35),
+              decoration: BoxDecoration(
+                  color: Color(0xff333333),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Salida del Distribuidor",
+                            style: TextStyle(
+                                fontSize: responsive.inchp(2.5),
+                                fontFamily: 'Rubik Medium',
+                                color: Color(0xffFFBF00))),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                            (pedidos[index].fechaEnLocal == null)
+                                ? 'Fecha: -'
+                                : 'Fecha: $fechaFormateadaDespacho',
+                            style: TextStyle(
+                                fontSize: responsive.inchp(2),
+                                fontFamily: 'Rubik Medium',
+                                color: Colors.white)),
+                        /* Text(
+                            (pedidos[index].fechaEnLocal == null)
+                                ? 'Hora: -'
+                                : 'Hora: $horaFormateadaEnLocal',
+                            style: TextStyle(
+                                fontSize: responsive.inchp(2),
+                                fontFamily: 'Rubik Medium',
+                                color: Colors.white)) */
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Image.asset(
+                      'assets/delivery.png',
+                      width: responsive.widthp(40),
+                      height: responsive.heigthp(30),
+                    ),
+                  )
+                ],
+              ),
+            ),
             SizedBox(
               height: responsive.heigthp(5),
             ),
@@ -353,20 +408,20 @@ class BodyDetallePedido extends StatelessWidget {
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
-                        Text(
+                        /*  Text(
                             (pedidos[index].fechaEnLocal == null)
                                 ? 'Hora: -'
                                 : 'Hora: $horaFormateadaEnLocal',
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
-                                color: Colors.white))
+                                color: Colors.white)) */
                       ],
                     ),
                   ),
                   Container(
                     child: Image.asset(
-                      'assets/delivery.png',
+                      'assets/despacho_distribuidor.png',
                       width: responsive.widthp(40),
                       height: responsive.heigthp(30),
                     ),
@@ -409,14 +464,14 @@ class BodyDetallePedido extends StatelessWidget {
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
+                        /*  Text(
                             (pedidos[index].fechaEnRuta == null)
                                 ? 'Hora: -'
                                 : "Hora: $horaFormateadaEnRuta",
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
-                                color: Colors.white)),
+                                color: Colors.white)), */
                         SizedBox(
                           height: 5,
                         ),
@@ -473,14 +528,14 @@ class BodyDetallePedido extends StatelessWidget {
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
-                        Text(
+                        /*  Text(
                             (pedidos[index].fechaEntregado == null)
                                 ? 'Hora: -'
                                 : "Hora: $horaFormateadaEntrega",
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
-                                color: Colors.white))
+                                color: Colors.white)) */
                       ],
                     ),
                   ),

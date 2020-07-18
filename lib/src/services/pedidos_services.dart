@@ -121,7 +121,7 @@ class PedidosServices with ChangeNotifier {
     notifyListeners();
 
     final url =
-        '$_api/pedidos?codigoPedido=$numeropedido&Departamento=$departamenteSeleccionado';
+        '$_api/pedidos?codigoPedido=$numeropedido&departamento=$departamenteSeleccionado';
     final resp = await http.get(url);
     final pedidosResponse = pedidosFromJson(resp.body);
     this.detalleSeguimientoPedido.addAll(pedidosResponse);
