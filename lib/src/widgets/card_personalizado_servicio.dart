@@ -247,7 +247,7 @@ class CardPedidoPersonalizadoServicioWidget extends StatelessWidget {
                       fontSize: sizeTextTitle,
                     )),
                 TextSpan(
-                    text: fechaEntregaPedidoText.substring(0, 10),
+                    text: fechaEntregaPedidoText,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: sizeTextSubTitle,

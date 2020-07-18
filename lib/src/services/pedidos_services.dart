@@ -25,9 +25,9 @@ class PedidosServices with ChangeNotifier {
     this.getPedidosEnRutaProveedor(user: user);
     this.getPedidosPendientesProveedor(user: user);
     this.getHistorialPedidosProveedor(user: user);
-    /*    this.getPendientesLiquidacionServicio(user: user);
+    this.getPendientesLiquidacionServicio(user: user);
     this.getHistorialLiquidacionServicio(user: user);
-    this.getAusentesServicio(user: user); */
+    this.getAusentesServicio(user: user);
   }
 
   void removeAll() {
@@ -86,7 +86,7 @@ class PedidosServices with ChangeNotifier {
 
   void getPendientesLiquidacionServicio({User user}) async {
     final url =
-        '$_api/pedidos?Departamento=${user.departamento}&idEvento=3&idEstadoliquidacion=2';
+        '$_api/pedidos?idUserReponsable.id_eq=${user.id}&idEvento=$STATUS_ENTREGADO&idEstadoLiquidacion=$STATUS_PENDIENTE';
     final resp = await http.get(url);
     final pedidosResponse = pedidosFromJson(resp.body);
     this.pendientesLiquidarServicio.addAll(pedidosResponse);
@@ -97,7 +97,7 @@ class PedidosServices with ChangeNotifier {
 
   void getHistorialLiquidacionServicio({User user}) async {
     final url =
-        '$_api/pedidos?Departamento=${user.departamento}&idEvento=3&idEstadoliquidacion=3';
+        '$_api/pedidos?idUserReponsable.id_eq=${user.id}&idEvento=$STATUS_ENTREGADO&idEstadoLiquidacion=$STATUS_EFECTIVO';
     final resp = await http.get(url);
     final pedidosResponse = pedidosFromJson(resp.body);
     this.liquidadosServicio.addAll(pedidosResponse);
@@ -108,7 +108,7 @@ class PedidosServices with ChangeNotifier {
 
   void getAusentesServicio({User user}) async {
     final url =
-        '$_api/pedidos?idEvento=4&idEstadoliquidacion=2&Departamento=${user.departamento}';
+        '$_api/pedidos?idUserReponsable.id_eq=${user.id}&idEvento=$STATUS_DEVUELTO&idEstadoLiquidacion=$STATUS_PENDIENTE';
     final resp = await http.get(url);
     final pedidosResponse = pedidosFromJson(resp.body);
     this.pedidosAusentes.addAll(pedidosResponse);
@@ -139,7 +139,10 @@ class PedidosServices with ChangeNotifier {
     Response response =
         await dio.put(ENTREGAR_PEDIDO_URL + '${pedido.id}', data: {
       'fechaEntregado': DateTime.now().toString(),
-      'idEvento': {"id": 3}
+      'idEvento': {
+        "_id": "$STATUS_ENTREGADO",
+        "id": "$STATUS_ENTREGADO",
+      }
     });
 
     if (response.statusCode == 200) {
@@ -158,7 +161,10 @@ class PedidosServices with ChangeNotifier {
     Response response =
         await dio.put(ENTREGAR_PEDIDO_URL + '${pedido.id}', data: {
       'fechaPrimeraVisita': DateTime.now().toString(),
-      'idEvento': {"id": 4}
+      'idEvento': {
+        "_id": "$STATUS_DEVUELTO",
+        "id": "$STATUS_DEVUELTO",
+      }
     });
 
     if (response.statusCode == 200) {
@@ -176,7 +182,10 @@ class PedidosServices with ChangeNotifier {
     dio.options.headers["Authorization"] = "Bearer ${user.jwt}";
     Response response =
         await dio.put(ENTREGAR_PEDIDO_URL + '${pedido.id}', data: {
-      'idEstadoliquidacion': {"id": 3}
+      'idEstadoliquidacion': {
+        "_id": "$STATUS_EFECTIVO",
+        "id": "$STATUS_EFECTIVO"
+      }
     });
 
     if (response.statusCode == 200) {
