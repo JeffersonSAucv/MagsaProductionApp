@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:repartos_magsa/utils/responsive.dart';
+import 'package:repartos_magsa/src/utils/responsive.dart';
 
 class LogoMagsa extends StatelessWidget {
   @override

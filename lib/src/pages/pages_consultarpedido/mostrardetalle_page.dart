@@ -2,17 +2,15 @@
 
 import 'package:flutter/material.dart';
 
-
-
 import 'package:provider/provider.dart';
 import 'package:repartos_magsa/src/services/pedidos_services.dart';
 
 import 'package:repartos_magsa/src/models/modelo_pedido.dart';
 
 import 'package:repartos_magsa/src/widgets/appbar_welcome_custom.dart';
-import 'package:repartos_magsa/utils/formateoHoraFecha.dart';
+import 'package:repartos_magsa/src/utils/formateoHoraFecha.dart';
 
-import 'package:repartos_magsa/utils/responsive.dart';
+import 'package:repartos_magsa/src/utils/responsive.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -284,7 +282,7 @@ class CuadradoNegro extends StatelessWidget {
   }
 }
 
- class BodyDetallePedido extends StatelessWidget {
+class BodyDetallePedido extends StatelessWidget {
   final List<Pedidos> pedidos;
   final int index;
 
@@ -296,10 +294,9 @@ class CuadradoNegro extends StatelessWidget {
 
     // FECHA DEL JSON
 
-    var fechaEnLocal   = pedidos[index].fechaEnLocal;
-    var fechaEnRuta    = pedidos[index].fechaEnRuta;
+    var fechaEnLocal = pedidos[index].fechaEnLocal;
+    var fechaEnRuta = pedidos[index].fechaEnRuta;
     var fechaEntregado = pedidos[index].fechaEntregado;
-
 
     //FORMATEAR HORA
     var horaFormateadaEnLocal = FormatearDate().formatearHora(fechaEnLocal);
@@ -310,7 +307,7 @@ class CuadradoNegro extends StatelessWidget {
 
     var fechaFormateadaEnLocal = FormatearDate().formatearFecha(fechaEnLocal);
     var fechaFormateadaEnRuta = FormatearDate().formatearFecha(fechaEnRuta);
-    var fechaFormateadaEntrega = FormatearDate().formatearFecha(fechaEntregado); 
+    var fechaFormateadaEntrega = FormatearDate().formatearFecha(fechaEntregado);
 
     final alto = MediaQuery.of(context).size;
     return Container(
@@ -349,15 +346,15 @@ class CuadradoNegro extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                             (pedidos[index].fechaEnLocal == null)
+                            (pedidos[index].fechaEnLocal == null)
                                 ? 'Fecha: -'
-                                : 'Fecha: $fechaFormateadaEnLocal' ,
+                                : 'Fecha: $fechaFormateadaEnLocal',
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
                         Text(
-                             (pedidos[index].fechaEnLocal == null)
+                            (pedidos[index].fechaEnLocal == null)
                                 ? 'Hora: -'
                                 : 'Hora: $horaFormateadaEnLocal',
                             style: TextStyle(
@@ -402,7 +399,7 @@ class CuadradoNegro extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                             (pedidos[index].fechaEnRuta == null)
+                            (pedidos[index].fechaEnRuta == null)
                                 ? 'Fecha: -'
                                 : "Fecha: $fechaFormateadaEnRuta",
                             style: TextStyle(
@@ -424,9 +421,9 @@ class CuadradoNegro extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                             (pedidos[index].idUser == null)
+                            (pedidos[index].idUser == null)
                                 ? 'Repartidor: -'
-                                : "Repartidor: ${pedidos[index].idUser.username}" ,
+                                : "Repartidor: ${pedidos[index].idUser.username}",
                             style: TextStyle(
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
@@ -508,4 +505,3 @@ class CuadradoNegro extends StatelessWidget {
     );
   }
 }
- 

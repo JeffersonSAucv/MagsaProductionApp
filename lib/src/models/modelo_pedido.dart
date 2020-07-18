@@ -4,222 +4,257 @@
 
 import 'dart:convert';
 
-List<Pedidos> pedidosFromJson(String str) => List<Pedidos>.from(json.decode(str).map((x) => Pedidos.fromJson(x)));
+List<Pedidos> pedidosFromJson(String str) =>
+    List<Pedidos>.from(json.decode(str).map((x) => Pedidos.fromJson(x)));
 
-String pedidosToJson(List<Pedidos> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String pedidosToJson(List<Pedidos> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Pedidos {
-    int id;
-    String codigoPedido;
-    DateTime createdAt;
-    DateTime updatedAt;
-    String numeroGuia;
-    String direccion;
-    String nombreConsultora;
-    DateTime fechaEnLocal;
-    DateTime fechaEnRuta;
-    dynamic fechaPrimeraVisita;
-    DateTime fechaEntregado;
-    dynamic fechaSegundaVisita;
-    Id idRemesa;
-    Id idSucursal;
-    Id idEvento;
-    Id idEstadoliquidacion;
-    Id idCampania;
-    Id idTiempoentrega;
-    String distrito;
-    String provincia;
-    String departamento;
-    int telefonoConsultora;
-    IdUser idUser;
+  Pedidos(
+      {this.id,
+      this.numeroGuia,
+      this.departamento,
+      this.fechaSegundaVisita,
+      this.fechaEnLocal,
+      this.fechaEntregado,
+      this.telefonoConsultora,
+      this.fechaPrimeraVisita,
+      this.provincia,
+      this.direccion,
+      this.fechaEnRuta,
+      this.distrito,
+      this.nombreConsultora,
+      this.codigoPedido,
+      this.createdAt,
+      this.updatedAt,
+      this.v,
+      this.idCampania,
+      this.idEstadoLiquidacion,
+      this.idEvento,
+      this.idSemana,
+      this.idSucursal,
+      this.idTiempoentrega,
+      this.idUser,
+      this.pedidoId,
+      this.fechaDespacho});
 
-    Pedidos({
-        this.id,
-        this.codigoPedido,
-        this.createdAt,
-        this.updatedAt,
-        this.numeroGuia,
-        this.direccion,
-        this.nombreConsultora,
-        this.fechaEnLocal,
-        this.fechaEnRuta,
-        this.fechaPrimeraVisita,
-        this.fechaEntregado,
-        this.fechaSegundaVisita,
-        this.idRemesa,
-        this.idSucursal,
-        this.idEvento,
-        this.idEstadoliquidacion,
-        this.idCampania,
-        this.idTiempoentrega,
-        this.distrito,
-        this.provincia,
-        this.departamento,
-        this.telefonoConsultora,
-        this.idUser,
-    });
+  String id;
+  String numeroGuia;
+  String departamento;
+  DateTime fechaSegundaVisita;
+  DateTime fechaEnLocal;
+  DateTime fechaEntregado;
+  String telefonoConsultora;
+  DateTime fechaPrimeraVisita;
+  String provincia;
+  String direccion;
+  DateTime fechaEnRuta;
+  String distrito;
+  String nombreConsultora;
+  String codigoPedido;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
+  Id idCampania;
+  Id idEstadoLiquidacion;
+  Id idEvento;
+  Id idSemana;
+  Id idSucursal;
+  Id idTiempoentrega;
+  IdUser idUser;
+  String pedidoId;
+  DateTime fechaDespacho;
 
-    factory Pedidos.fromJson(Map<String, dynamic> json) => Pedidos(
-        id: json["id"],
-        codigoPedido: json["codigoPedido"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+  factory Pedidos.fromJson(Map<String, dynamic> json) => Pedidos(
+        id: json["_id"],
         numeroGuia: json["numeroGuia"],
-        direccion: json["Direccion"],
+        departamento: json["departamento"],
+        fechaSegundaVisita: json["fechaSegundaVisita"] == null
+            ? null
+            : DateTime.tryParse(json["fechaEnRuta"]),
+        fechaEnLocal: json["fechaEnLocal"] == null
+            ? null
+            : DateTime.parse(json["fechaEnLocal"]),
+        fechaEntregado: json["fechaEntregado"] == null
+            ? null
+            : DateTime.parse(json["fechaEntregado"]),
+        telefonoConsultora: json["telefonoConsultora"],
+        fechaPrimeraVisita: json["fechaPrimeraVisita"] == null
+            ? null
+            : DateTime.parse(json["fechaPrimeraVisita"]),
+        provincia: json["provincia"],
+        direccion: json["direccion"],
+        fechaEnRuta: json["fechaEnRuta"] == null
+            ? null
+            : DateTime.parse(json["fechaEnRuta"]),
+        distrito: json["distrito"],
         nombreConsultora: json["nombreConsultora"],
-        fechaEnLocal: DateTime.parse(json["fechaEnLocal"]),
-        fechaEnRuta:  json["fechaEnRuta"] == null ? null : DateTime.parse(json["fechaEnRuta"]),
-        fechaPrimeraVisita: json["fechaPrimeraVisita"],
-        fechaEntregado: json["fechaEntregado"] == null ? null : DateTime.parse(json["fechaEntregado"]),
-        fechaSegundaVisita: json["fechaSegundaVisita"] == null ? null : json["fechaSegundaVisita"],
-        idRemesa: Id.fromJson(json["idRemesa"]),
-        idSucursal: Id.fromJson(json["idSucursal"]),
-        idEvento: Id.fromJson(json["idEvento"]),
-        idEstadoliquidacion: Id.fromJson(json["idEstadoliquidacion"]),
+        codigoPedido: json["codigoPedido"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
         idCampania: Id.fromJson(json["idCampania"]),
+        idEstadoLiquidacion: Id.fromJson(json["idEstadoLiquidacion"]),
+        idEvento: Id.fromJson(json["idEvento"]),
+        idSemana: Id.fromJson(json["idSemana"]),
+        idSucursal: Id.fromJson(json["idSucursal"]),
         idTiempoentrega: Id.fromJson(json["idTiempoentrega"]),
-        distrito: json["Distrito"],
-        provincia: json["Provincia"],
-        departamento: json["Departamento"],
-        telefonoConsultora: json["TelefonoConsultora"],
-        idUser: json["idUser"] == null ? null : IdUser.fromJson(json["idUser"]),
-    );
+        idUser: IdUser.fromJson(json["idUser"]),
+        pedidoId: json["id"],
+        fechaDespacho: json["fechaDespacho"] == null
+            ? null
+            : DateTime.parse(json["fechaDespacho"]),
+      );
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "codigoPedido": codigoPedido,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+  Map<String, dynamic> toJson() => {
+        "_id": id,
         "numeroGuia": numeroGuia,
-        "Direccion": direccion,
-        "nombreConsultora": nombreConsultora,
+        "departamento": departamento,
+        "fechaSegundaVisita": fechaSegundaVisita.toIso8601String(),
         "fechaEnLocal": fechaEnLocal.toIso8601String(),
+        "fechaEntregado": fechaEntregado.toIso8601String(),
+        "telefonoConsultora": telefonoConsultora,
+        "fechaPrimeraVisita": fechaPrimeraVisita.toIso8601String(),
+        "provincia": provincia,
+        "direccion": direccion,
         "fechaEnRuta": fechaEnRuta.toIso8601String(),
-        "fechaPrimeraVisita": fechaPrimeraVisita,
-        "fechaEntregado": fechaEntregado == null ? null : fechaEntregado.toIso8601String(),
-        "fechaSegundaVisita": fechaSegundaVisita,
-        "idRemesa": idRemesa.toJson(),
-        "idSucursal": idSucursal.toJson(),
-        "idEvento": idEvento.toJson(),
-        "idEstadoliquidacion": idEstadoliquidacion.toJson(),
+        "distrito": distrito,
+        "nombreConsultora": nombreConsultora,
+        "codigoPedido": codigoPedido,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
         "idCampania": idCampania.toJson(),
+        "idEstadoLiquidacion": idEstadoLiquidacion.toJson(),
+        "idEvento": idEvento.toJson(),
+        "idSemana": idSemana.toJson(),
+        "idSucursal": idSucursal.toJson(),
         "idTiempoentrega": idTiempoentrega.toJson(),
-        "Distrito": distrito,
-        "Provincia": provincia,
-        "Departamento": departamento,
-        "TelefonoConsultora": telefonoConsultora,
-        "idUser": idUser == null ? null : idUser.toJson(),
-    };
+        "idUser": idUser.toJson(),
+        "id": pedidoId,
+        "fechaDespacho": fechaDespacho.toIso8601String()
+      };
 }
 
 class Id {
-    int id;
-    String descripCamapania;
-    DateTime createdAt;
-    DateTime updatedAt;
-    String descripEstadoLiq;
-    String descripcionEstado;
-    String descripRemesa;
-    String nombreSucursal;
-    String diasTiempoEntrega;
+  Id({
+    this.id,
+    this.descripCampania,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.idId,
+    this.descripEstadoLiq,
+    this.descripcionEstado,
+    this.descripRemesa,
+    this.nombreSucursal,
+    this.diasTiempoEntrega,
+  });
 
-    Id({
-        this.id,
-        this.descripCamapania,
-        this.createdAt,
-        this.updatedAt,
-        this.descripEstadoLiq,
-        this.descripcionEstado,
-        this.descripRemesa,
-        this.nombreSucursal,
-        this.diasTiempoEntrega,
-    });
+  String id;
+  String descripCampania;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
+  String idId;
+  String descripEstadoLiq;
+  String descripcionEstado;
+  String descripRemesa;
+  String nombreSucursal;
+  String diasTiempoEntrega;
 
-    factory Id.fromJson(Map<String, dynamic> json) => Id(
-        id: json["id"],
-        descripCamapania: json["descripCamapania"] == null ? null : json["descripCamapania"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        descripEstadoLiq: json["descripEstadoLiq"] == null ? null : json["descripEstadoLiq"],
-        descripcionEstado: json["descripcionEstado"] == null ? null : json["descripcionEstado"],
-        descripRemesa: json["descripRemesa"] == null ? null : json["descripRemesa"],
-        nombreSucursal: json["nombreSucursal"] == null ? null : json["nombreSucursal"],
-        diasTiempoEntrega: json["diasTiempoEntrega"] == null ? null : json["diasTiempoEntrega"],
-    );
+  factory Id.fromJson(Map<String, dynamic> json) => Id(
+        id: json["_id"],
+        descripCampania:
+            json["descripCampania"] == null ? null : json["descripCampania"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
+        idId: json["id"],
+        descripEstadoLiq:
+            json["descripEstadoLiq"] == null ? null : json["descripEstadoLiq"],
+        descripcionEstado: json["descripcionEstado"] == null
+            ? null
+            : json["descripcionEstado"],
+        descripRemesa:
+            json["descripRemesa"] == null ? null : json["descripRemesa"],
+        nombreSucursal:
+            json["nombreSucursal"] == null ? null : json["nombreSucursal"],
+        diasTiempoEntrega: json["diasTiempoEntrega"] == null
+            ? null
+            : json["diasTiempoEntrega"],
+      );
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "descripCamapania": descripCamapania == null ? null : descripCamapania,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "descripCampania": descripCampania == null ? null : descripCampania,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
+        "id": idId,
         "descripEstadoLiq": descripEstadoLiq == null ? null : descripEstadoLiq,
-        "descripcionEstado": descripcionEstado == null ? null : descripcionEstado,
+        "descripcionEstado":
+            descripcionEstado == null ? null : descripcionEstado,
         "descripRemesa": descripRemesa == null ? null : descripRemesa,
         "nombreSucursal": nombreSucursal == null ? null : nombreSucursal,
-        "diasTiempoEntrega": diasTiempoEntrega == null ? null : diasTiempoEntrega,
-    };
+        "diasTiempoEntrega":
+            diasTiempoEntrega == null ? null : diasTiempoEntrega,
+      };
 }
 
 class IdUser {
-    int id;
-    String username;
-    String email;
-    String provider;
-    bool confirmed;
-    bool blocked;
-    int role;
-    DateTime createdAt;
-    DateTime updatedAt;
-    int dni;
-    int numeroCelular;
-    dynamic direccion;
-    int idVehiculo;
+  IdUser({
+    this.confirmed,
+    this.blocked,
+    this.id,
+    this.username,
+    this.email,
+    this.provider,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.role,
+    this.idUserId,
+  });
 
-    IdUser({
-        this.id,
-        this.username,
-        this.email,
-        this.provider,
-        this.confirmed,
-        this.blocked,
-        this.role,
-        this.createdAt,
-        this.updatedAt,
-        this.dni,
-        this.numeroCelular,
-        this.direccion,
-        this.idVehiculo,
-    });
+  bool confirmed;
+  bool blocked;
+  String id;
+  String username;
+  String email;
+  String provider;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
+  String role;
+  String idUserId;
 
-    factory IdUser.fromJson(Map<String, dynamic> json) => IdUser(
-        id: json["id"],
+  factory IdUser.fromJson(Map<String, dynamic> json) => IdUser(
+        confirmed: json["confirmed"],
+        blocked: json["blocked"],
+        id: json["_id"],
         username: json["username"],
         email: json["email"],
         provider: json["provider"],
-        confirmed: json["confirmed"],
-        blocked: json["blocked"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
         role: json["role"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        dni: json["dni"],
-        numeroCelular: json["numeroCelular"],
-        direccion: json["direccion"],
-        idVehiculo: json["idVehiculo"],
-    );
+        idUserId: json["id"],
+      );
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
+  Map<String, dynamic> toJson() => {
+        "confirmed": confirmed,
+        "blocked": blocked,
+        "_id": id,
         "username": username,
         "email": email,
         "provider": provider,
-        "confirmed": confirmed,
-        "blocked": blocked,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
         "role": role,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "dni": dni,
-        "numeroCelular": numeroCelular,
-        "direccion": direccion,
-        "idVehiculo": idVehiculo,
-    };
+        "id": idUserId,
+      };
 }

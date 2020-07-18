@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:repartos_magsa/utils/responsive.dart';
+import 'package:repartos_magsa/src/utils/responsive.dart';
 
 class AppBarWelcome extends StatelessWidget {
   final String texto;
@@ -22,22 +22,21 @@ class AppBarWelcome extends StatelessWidget {
                 child: InkWell(
                   onTap: ontap,
                   child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: responsive.widthp(5)),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: responsive.widthp(5)),
                       child: FaIcon(FontAwesomeIcons.chevronLeft)),
                 )),
-            Expanded(flex: 2, 
-            child: Container(
-              
-              child: Text(
-                texto,
-                style: TextStyle(
-                  fontSize: responsive.inchp(3),
-                  fontFamily: 'Rubik Medium',
-                  fontWeight: FontWeight.w200
-                ),
-              ),
-            )),
+            Expanded(
+                flex: 2,
+                child: Container(
+                  child: Text(
+                    texto,
+                    style: TextStyle(
+                        fontSize: responsive.inchp(3),
+                        fontFamily: 'Rubik Medium',
+                        fontWeight: FontWeight.w200),
+                  ),
+                )),
           ],
         ),
       ),

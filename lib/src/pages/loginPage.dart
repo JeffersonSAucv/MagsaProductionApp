@@ -1,8 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-//LIBRERIAS 
+//LIBRERIAS
 import 'package:animate_do/animate_do.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:repartos_magsa/src/models/modelo_usuario.dart';
@@ -13,14 +12,11 @@ import 'package:repartos_magsa/src/widgets/appbar_welcome_custom.dart';
 import 'package:repartos_magsa/src/widgets/background_widget.dart';
 
 //UTILS
-import 'package:repartos_magsa/utils/responsive.dart';
+import 'package:repartos_magsa/src/utils/responsive.dart';
 import 'package:repartos_magsa/src/widgets/camposFieldCustom_widgets.dart';
 import 'package:repartos_magsa/src/widgets/logomagsa.dart';
 
-
-
 class LoginPage extends StatelessWidget {
-
   final List<DatosUsuario> usuario;
 
   const LoginPage({Key key, this.usuario}) : super(key: key);
@@ -31,29 +27,34 @@ class LoginPage extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           BackGround(), //FONDO APLICACION
-          AppBarWelcome(  // APP BAR CUSTOM
+          AppBarWelcome(
+            // APP BAR CUSTOM
             texto: 'INGRESA TUS DATOS',
             ontap: () => Navigator.of(context).pop(),
           ),
           Positioned(
-            bottom: responsive.inchp(4),
-            left: responsive.inchp(2),
-            child: ZoomIn(duration: Duration(seconds: 1), child: LogoMagsa())),
+              bottom: responsive.inchp(4),
+              left: responsive.inchp(2),
+              child:
+                  ZoomIn(duration: Duration(seconds: 1), child: LogoMagsa())),
           SafeArea(
             child: ListView(
               reverse: true,
               physics: BouncingScrollPhysics(),
               children: <Widget>[
-                Container( height: responsive.heigthp(30),),
+                Container(
+                  height: responsive.heigthp(30),
+                ),
                 Align(
                     alignment: Alignment.center,
                     child: FadeInUpBig(
                         delay: Duration(seconds: 1),
-                        child: ContainerTextsFields(usuario: usuario,))),        
+                        child: ContainerTextsFields(
+                          usuario: usuario,
+                        ))),
               ],
             ),
           )
-           
         ],
       ),
     );
@@ -61,48 +62,38 @@ class LoginPage extends StatelessWidget {
 }
 
 class ContainerTextsFields extends StatefulWidget {
-
-
   final List<DatosUsuario> usuario;
-  const ContainerTextsFields({Key key, @required this.usuario}) : super(key: key);
+  const ContainerTextsFields({Key key, @required this.usuario})
+      : super(key: key);
 
-
-   @override
+  @override
   _ContainerTextsFieldsState createState() => _ContainerTextsFieldsState();
-
 }
 
 class _ContainerTextsFieldsState extends State<ContainerTextsFields> {
-
   var _correo = '';
   var _password = '';
-  var _isFetching =  false;
+  var _isFetching = false;
 
-  
   final formKey = GlobalKey<FormState>();
   final _authApi = AuthApi();
 
-
   void _submit() async {
+    if (_isFetching) return;
 
-      if(_isFetching) return;
+    final isValid = formKey.currentState.validate();
+    if (isValid) {
+      setState(() {
+        _isFetching = true;
+      });
+      await _authApi.login(_correo, _password, context);
 
-      final isValid =  formKey.currentState.validate();
-      if(isValid){
-        setState(() {
-          _isFetching = true;
-
-        });
-         await _authApi.login(_correo, _password, context);
-
-        setState(() {
-          _isFetching = false;
-
-        });
-        
-      }
+      setState(() {
+        _isFetching = false;
+      });
+    }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
@@ -122,7 +113,7 @@ class _ContainerTextsFieldsState extends State<ContainerTextsFields> {
           ],
         ),
         child: Form(
-            key: formKey,
+          key: formKey,
           child: Column(
             children: <Widget>[
               //SizedBox(height:responsive.heigthp(5) ,),
@@ -136,10 +127,10 @@ class _ContainerTextsFieldsState extends State<ContainerTextsFields> {
                     border: InputBorder.none,
                   ),
                   //VALIDACION  CAMPO CORREO
-                  validator: (value){
-                    if(value.contains("@")){
-                      _correo =value;
-                       return null;
+                  validator: (value) {
+                    if (value.contains("@")) {
+                      _correo = value;
+                      return null;
                     }
                     return "Correo Invalido";
                   },
@@ -149,16 +140,16 @@ class _ContainerTextsFieldsState extends State<ContainerTextsFields> {
               CampoFieldCustom(
                 icon: FontAwesomeIcons.lock,
                 textformfield: TextFormField(
-                  obscureText:  true,
+                  obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'Contraseña',
                     border: InputBorder.none,
                   ),
                   //VALIDACION  CAMPO CONTRASEÑA
-                  validator: (value){
-                    if(value.isNotEmpty && value.length > 5){
-                       _password = value;
-                       return null;
+                  validator: (value) {
+                    if (value.isNotEmpty && value.length > 5) {
+                      _password = value;
+                      return null;
                     }
                     return "Contraseña muy corta";
                   },
@@ -168,23 +159,21 @@ class _ContainerTextsFieldsState extends State<ContainerTextsFields> {
               BotonLogin(
                 // EL BOTON DEVUELVE UN WIDGET Y LLAMAMOS A UN LOADER MIENTRAS TRAE LA DATA  Y LUEGO CAMBIA AL BOTON
                 widget: _isFetching
-                      ? Container(
-                        child: CupertinoActivityIndicator( radius: 10,)
-                      )
-                      : Text("INGRESAR",
-                      style: TextStyle(
-                        fontSize: responsive.inchp(3),
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'OpenSans-Regular')),
-                
-                onTap: () {
-                  
-                   _submit();
+                    ? Container(
+                        child: CupertinoActivityIndicator(
+                        radius: 10,
+                      ))
+                    : Text("INGRESAR",
+                        style: TextStyle(
+                            fontSize: responsive.inchp(3),
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'OpenSans-Regular')),
 
+                onTap: () {
+                  _submit();
                 },
               ),
               Spacer(),
-              
             ],
           ),
         ),
@@ -193,14 +182,11 @@ class _ContainerTextsFieldsState extends State<ContainerTextsFields> {
   }
 }
 
-
-
 //BOTTOM LOGIN
 
 class BotonLogin extends StatelessWidget {
   final Function onTap;
   final Widget widget;
-
 
   const BotonLogin({Key key, this.onTap, this.widget}) : super(key: key);
 
@@ -219,9 +205,7 @@ class BotonLogin extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xffFFD200),
-                  Color(0xffFFBF00)],
+                colors: [Color(0xffFFD200), Color(0xffFFBF00)],
               ),
             ),
             child: Container(
@@ -233,9 +217,3 @@ class BotonLogin extends StatelessWidget {
         )));
   }
 }
-
-
-
-
-
- 

@@ -10,20 +10,18 @@ import 'package:repartos_magsa/src/models/modelo_pedido.dart';
 import 'package:repartos_magsa/src/services/pedidos_services.dart';
 import 'package:repartos_magsa/src/widgets/card_peronalizado.dart';
 
-
 class HistorialPedidosProveedorPage extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
+    final pedidosServices =
+        Provider.of<PedidosServices>(context).historialPedidos;
 
-    final pedidosServices = Provider.of<PedidosServices>(context).historialPedidos;
-      
     return SafeArea(
       child: Scaffold(
         body: Center(
           child: HistorialPedidosProveedor(pedidos: pedidosServices),
-       ),
-   ),
+        ),
+      ),
     );
   }
 }
@@ -35,52 +33,50 @@ class HistorialPedidosProveedor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-     if (pedidos.isEmpty) {
-        return Container(
+    if (pedidos.isEmpty) {
+      return Container(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-                Image.asset('assets/repartidor.png', height: 250, width: 200,),
-                Text("No tienes pedidos entregados aún")
-            ], 
-          )
-        ),
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              'assets/repartidor.png',
+              height: 250,
+              width: 200,
+            ),
+            Text("No tienes pedidos entregados aún")
+          ],
+        )),
       );
-     } else {
-     
+    } else {
+      return ListView.builder(
+        physics: BouncingScrollPhysics(),
+        itemCount: pedidos.length,
+        itemBuilder: (BuildContext context, int index) {
+          print("PEDIDOS TOTALESSSS : ${pedidos.length}");
+          return FadeInLeft(
+            duration: Duration(milliseconds: 400),
+            child: CardPedidoPersonalizadoWidget(
+              pedidos: pedidos,
+              index: index,
+              //*DETALLES CARD
+              codigopedidotext: pedidos[index].codigoPedido.toString(),
+              nombreDistritoText: pedidos[index].distrito.toString(),
+              direccionText: pedidos[index].direccion.toString(),
+              consultoraNombreText: pedidos[index].nombreConsultora.toString(),
+              telefConsultoraText: pedidos[index].telefonoConsultora.toString(),
+              fechaEntregaPedidoText: pedidos[index].fechaEntregado.toString(),
+              campaniaText: pedidos[index].idCampania.descripCampania,
+              remesaText: pedidos[index].idSemana.descripRemesa,
 
-    return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      itemCount: pedidos.length,
-      itemBuilder: (BuildContext context, int index) {
-         print("PEDIDOS TOTALESSSS : ${pedidos.length}");
-      return FadeInLeft(
-        duration: Duration(milliseconds:  400),
-        child: CardPedidoPersonalizadoWidget(
-          pedidos:     pedidos,
-          index:            index,
-           //*DETALLES CARD 
-            codigopedidotext:       pedidos[index].codigoPedido.toString(),
-            nombreDistritoText:     pedidos[index].distrito.toString(),
-            direccionText:          pedidos[index].direccion.toString() ,
-            consultoraNombreText:   pedidos[index].nombreConsultora.toString(),
-            telefConsultoraText:    pedidos[index].telefonoConsultora.toString(),
-            fechaEntregaPedidoText: pedidos[index].fechaEntregado.toString(),
-            campaniaText:           pedidos[index].idCampania.descripCamapania,
-            remesaText:             pedidos[index].idRemesa.descripRemesa,
-            
-            //*TOP BANNER CARD
-            iconbg:  FontAwesomeIcons.history,
-            color1bg: Color(0xff56ab2f),
-            color2bg: Color(0xffa8e063),
-
-            
-        ),
+              //*TOP BANNER CARD
+              iconbg: FontAwesomeIcons.history,
+              color1bg: Color(0xff56ab2f),
+              color2bg: Color(0xffa8e063),
+            ),
+          );
+        },
       );
-     },
-    );
-  }
+    }
   }
 }

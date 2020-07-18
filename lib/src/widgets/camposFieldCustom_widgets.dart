@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:repartos_magsa/utils/responsive.dart';
+import 'package:repartos_magsa/src/utils/responsive.dart';
 
 //CAMPOS DEL TEXTFORM FIELD
 

@@ -78,8 +78,8 @@ class _PedidosPendienteLiquidarServicioState
                   widget.pedidos[index].telefonoConsultora.toString(),
               fechaEntregaPedidoText:
                   widget.pedidos[index].fechaEntregado.toString(),
-              campaniaText: widget.pedidos[index].idCampania.descripCamapania,
-              remesaText: widget.pedidos[index].idRemesa.descripRemesa,
+              campaniaText: widget.pedidos[index].idCampania.descripCampania,
+              remesaText: widget.pedidos[index].idSemana.descripRemesa,
               repartidorNombreText: widget.pedidos[index].idUser.username,
 
               //*TOP BANNER CARD
