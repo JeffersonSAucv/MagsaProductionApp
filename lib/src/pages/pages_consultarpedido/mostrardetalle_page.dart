@@ -202,8 +202,12 @@ class HeadSeguimientoPedido extends StatelessWidget {
 
   // MOSTRANDO EL PRIMERO NOMBRE DE LA CONSULTORA
   String cortarNombre() {
-    var nombre = (pedidos[index].nombreConsultora).toString().split(' ');
-    return nombre[0];
+    if (pedidos[index].nombreConsultora == null) {
+      return '-';
+    } else {
+      var nombre = (pedidos[index].nombreConsultora).toString().split(' ');
+      return nombre[0];
+    }
   }
 }
 
@@ -355,6 +359,14 @@ class BodyDetallePedido extends StatelessWidget {
                                 fontSize: responsive.inchp(2),
                                 fontFamily: 'Rubik Medium',
                                 color: Colors.white)),
+                        Text(
+                            (pedidos[index].fechaEnLocal == null)
+                                ? 'Repartidor: -'
+                                : 'Repartidor: INMUNOTEC',
+                            style: TextStyle(
+                                fontSize: responsive.inchp(2),
+                                fontFamily: 'Rubik Medium',
+                                color: Colors.white))
                         /* Text(
                             (pedidos[index].fechaEnLocal == null)
                                 ? 'Hora: -'

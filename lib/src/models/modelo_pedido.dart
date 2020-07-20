@@ -67,9 +67,10 @@ class Pedidos {
   DateTime fechaDespacho;
 
   factory Pedidos.fromJson(Map<String, dynamic> json) => Pedidos(
-        id: json["_id"],
-        numeroGuia: json["numeroGuia"],
-        departamento: json["departamento"],
+        id: json["_id"] == null ? null : json["_id"],
+        numeroGuia: json["numeroGuia"] == null ? null : json["numeroGuia"],
+        departamento:
+            json["departamento"] == null ? null : json["departamento"],
         fechaSegundaVisita: json["fechaSegundaVisita"] == null
             ? null
             : DateTime.tryParse(json["fechaEnRuta"]),
@@ -88,20 +89,34 @@ class Pedidos {
         fechaEnRuta: json["fechaEnRuta"] == null
             ? null
             : DateTime.parse(json["fechaEnRuta"]),
-        distrito: json["distrito"],
-        nombreConsultora: json["nombreConsultora"],
-        codigoPedido: json["codigoPedido"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
-        idCampania: Id.fromJson(json["idCampania"]),
-        idEstadoLiquidacion: Id.fromJson(json["idEstadoLiquidacion"]),
-        idEvento: Id.fromJson(json["idEvento"]),
-        idSemana: Id.fromJson(json["idSemana"]),
-        idSucursal: Id.fromJson(json["idSucursal"]),
-        idTiempoentrega: Id.fromJson(json["idTiempoentrega"]),
-        idUser: IdUser.fromJson(json["idUser"]),
-        pedidoId: json["id"],
+        distrito: json["distrito"] == null ? null : json["distrito"],
+        nombreConsultora:
+            json["nombreConsultora"] == null ? null : json["nombreConsultora"],
+        codigoPedido:
+            json["codigoPedido"] == null ? null : json["codigoPedido"],
+        createdAt: json["createdAt"] == null
+            ? null
+            : DateTime.parse(json["createdAt"]),
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
+        v: json["__v"] == null ? null : json["__v"],
+        idCampania:
+            json["idCampania"] == null ? null : Id.fromJson(json["idCampania"]),
+        idEstadoLiquidacion: json["idEstadoLiquidacion"] == null
+            ? null
+            : Id.fromJson(json["idEstadoLiquidacion"]),
+        idEvento:
+            json["idEvento"] == null ? null : Id.fromJson(json["idEvento"]),
+        idSemana:
+            json["idSemana"] == null ? null : Id.fromJson(json["idSemana"]),
+        idSucursal:
+            json["idSemana"] == null ? null : Id.fromJson(json["idSemana"]),
+        idTiempoentrega:
+            json["idSemana"] == null ? null : Id.fromJson(json["idSemana"]),
+        idUser:
+            json["idSemana"] == null ? null : IdUser.fromJson(json["idSemana"]),
+        pedidoId: json["id"] == null ? null : json["id"],
         fechaDespacho: json["fechaDespacho"] == null
             ? null
             : DateTime.parse(json["fechaDespacho"]),
@@ -165,13 +180,13 @@ class Id {
   String diasTiempoEntrega;
 
   factory Id.fromJson(Map<String, dynamic> json) => Id(
-        id: json["_id"],
+        id: json["_id"] == null ? null : json["_id"],
         descripCampania:
             json["descripCampania"] == null ? null : json["descripCampania"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        idId: json["id"],
+        idId: json["id"] == null ? null : json["id"],
         descripEstadoLiq:
             json["descripEstadoLiq"] == null ? null : json["descripEstadoLiq"],
         descripcionEstado: json["descripcionEstado"] == null
@@ -231,17 +246,21 @@ class IdUser {
   String idUserId;
 
   factory IdUser.fromJson(Map<String, dynamic> json) => IdUser(
-        confirmed: json["confirmed"],
-        blocked: json["blocked"],
-        id: json["_id"],
-        username: json["username"],
-        email: json["email"],
-        provider: json["provider"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
-        role: json["role"],
-        idUserId: json["id"],
+        confirmed: json["confirmed"] == null ? null : json["confirmed"],
+        blocked: json["blocked"] == null ? null : json["blocked"],
+        id: json["_id"] == null ? null : json["_id"],
+        username: json["username"] == null ? null : json["username"],
+        email: json["email"] == null ? null : json["email"],
+        provider: json["provider"] == null ? null : json["provider"],
+        createdAt: json["createdAt"] == null
+            ? null
+            : DateTime.parse(json["createdAt"]),
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
+        v: json["__v"] == null ? null : json["__v"],
+        role: json["role"] == null ? null : json["role"],
+        idUserId: json["id"] == null ? null : json["id"],
       );
 
   Map<String, dynamic> toJson() => {
